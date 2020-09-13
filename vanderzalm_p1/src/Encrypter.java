@@ -7,11 +7,11 @@ public class Encrypter
 
         int [] tempArray = plusSevenRemainder(unencryptedArray);
 
-        System.out.println(Arrays.toString(tempArray));
+        int [] encryptedArray = swapDigits(tempArray);
 
-//        int [] encryptedArray = swapDigits(tempArray);
+//        System.out.println(Arrays.toString(encryptedArray));
 
-//        String encryptedOutput = convertArrayToString(encryptedArray);
+//        String encryptedOutput = integerArrayToString(encryptedArray);
 
         return "0189";
     }
@@ -27,10 +27,7 @@ public class Encrypter
     }
 
     public int [] plusSevenRemainder(int [] array) {
-        int size = array.length;
-//        int [] newArray = new int [size];
-//        System.arraycopy(array, 0, newArray, 0, size);
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < array.length; i++) {
             if (array[i] <= 2) {
                 array[i] += 7;
             }
@@ -42,15 +39,20 @@ public class Encrypter
         return array;
     }
 
-//    public int [] swapDigits(int [] tempArray)
-//    {
+    public int [] swapDigits(int [] array) {
+        int temp = array[0];
+        array[0] = array[2];
+        array[2] = temp;
+
+        temp = array[1];
+        array[1] = array[3];
+        array[3] = temp;
+
+        return array;
+    }
+
+//    public String convertArrayToString(int [] encryptedArray) {
 //
-//
-//        return encryptedArray;
-//    }
-//
-//    public String convertArrayToString(int [] encryptedArray)
-//    {
 //
 //        return encryptedString;
 //    }
