@@ -1,5 +1,5 @@
-public class Encrypter
-{
+public class Encrypter {
+
     public String encrypt(String stringInput) {
         int [] unencryptedArray = stringToArrayofIntegers(stringInput);
         int [] tempArray = plusSevenRemainder(unencryptedArray);
@@ -9,14 +9,14 @@ public class Encrypter
         return encryptedString;
     }
 
-    public int [] stringToArrayofIntegers(String stringInput) {
-        int size = stringInput.length();
-        int [] unencryptedArray = new int [size];
+    public int [] stringToArrayofIntegers(String str) {
+        int size = str.length();
+        int [] array = new int [size];
 
         for (int i = 0; i < size; i++)
-            unencryptedArray[i] = stringInput.charAt(i) - '0';
+            array[i] = str.charAt(i) - '0';
 
-        return unencryptedArray;
+        return array;
     }
 
     public int [] plusSevenRemainder(int [] array) {
@@ -39,7 +39,6 @@ public class Encrypter
         temp = array[1];
         array[1] = array[3];
         array[3] = temp;
-
         return array;
     }
 
@@ -58,5 +57,4 @@ public class Encrypter
             tempBuffer.append(str);
         return tempBuffer.toString();
     }
-
 }
