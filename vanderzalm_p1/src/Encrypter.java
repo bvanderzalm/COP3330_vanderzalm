@@ -1,19 +1,12 @@
-import java.util.Arrays;
-
 public class Encrypter
 {
     public String encrypt(String stringInput) {
         int [] unencryptedArray = stringToArrayofIntegers(stringInput);
-
         int [] tempArray = plusSevenRemainder(unencryptedArray);
-
         int [] encryptedArray = swapDigits(tempArray);
+        String encryptedString = integerArrayToString(encryptedArray);
 
-//        System.out.println(Arrays.toString(encryptedArray));
-
-//        String encryptedOutput = integerArrayToString(encryptedArray);
-
-        return "0189";
+        return encryptedString;
     }
 
     public int [] stringToArrayofIntegers(String stringInput) {
@@ -28,9 +21,8 @@ public class Encrypter
 
     public int [] plusSevenRemainder(int [] array) {
         for (int i = 0; i < array.length; i++) {
-            if (array[i] <= 2) {
+            if (array[i] <= 2)
                 array[i] += 7;
-            }
             else {
                 array[i] += 7;
                 array[i] = (array[i] % 10);
@@ -51,10 +43,20 @@ public class Encrypter
         return array;
     }
 
-//    public String convertArrayToString(int [] encryptedArray) {
-//
-//
-//        return encryptedString;
-//    }
+    public String integerArrayToString(int [] intArray) {
+        String [] strArray = new String[intArray.length];
+        for (int i = 0; i < intArray.length; i++)
+            strArray[i] = String.valueOf(intArray[i]);
+
+        String encryptedString = stringArrayToStringNoBrackets(strArray);
+        return encryptedString;
+    }
+
+    public String stringArrayToStringNoBrackets(String [] strArray) {
+        StringBuilder tempBuffer = new StringBuilder();
+        for (String str : strArray)
+            tempBuffer.append(str);
+        return tempBuffer.toString();
+    }
 
 }
