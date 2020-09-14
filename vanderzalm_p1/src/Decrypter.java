@@ -2,7 +2,7 @@ public class Decrypter {
 
     public String decrypt(String stringInput) {
         int [] encryptedArray = stringToArrayofIntegers(stringInput);
-        int [] tempArray = subtractSevenOrAddTen(encryptedArray);
+        int [] tempArray = subtractSevenOrAddThree(encryptedArray);
         int [] decryptedArray = swapDigits(tempArray);
         String decryptedString = integerArrayToString(decryptedArray);
 
@@ -19,7 +19,7 @@ public class Decrypter {
         return array;
     }
 
-    public int [] subtractSevenOrAddTen(int [] array) {
+    public int [] subtractSevenOrAddThree(int [] array) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] >= 7)
                 array[i] -= 7;
