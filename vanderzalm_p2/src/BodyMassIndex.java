@@ -1,20 +1,30 @@
 public class BodyMassIndex {
 
-    public double bmiScore;
-    public String bmiCategory;
+    double bmiScore;
+    String bmiCategory;
 
     public BodyMassIndex(double height, double weight) {
         this.bmiScore = getBmiScore(height, weight);
-        this.bmiCategory = getBmiCategory(bmiScore);
+        this.bmiCategory = getBmiCategory(height, weight);
     }
 
     public double getBmiScore(double height, double weight) {
-//        System.out.println("nice");
-        return height;
-        
+        return 703 * (weight / (height * height));
     }
 
-    public String getBmiCategory(double bmiScore) {
-        return "Your fat";
+    public String getBmiCategory(double height, double weight) {
+        String category = null;
+        double score = getBmiScore(height,weight);
+        
+        if (score <= 18.5)
+            category = "Underweight";
+        else if (score > 18.5 && score <= 24.9)
+            category = "Normal Weight";
+        else if (score >= 25.0 && score <= 29.9)
+            category = "Overweight";
+        else if (score >= 30.0)
+            category = "Obesity";
+        
+        return category;
     }
 }
