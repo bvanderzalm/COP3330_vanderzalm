@@ -3,20 +3,23 @@ import java.util.Scanner;
 public class App {
 
     public static void main(String[] args) {
-        ArrayList<BodyMassIndex> bmiData = new ArrayList<BodyMassIndex>();
+//        ArrayList<BodyMassIndex> bmiData = new ArrayList<BodyMassIndex>();
 
         while(moreInput()) {
             double height = getUserHeight();
             double weight = getUserWeight();
 
             BodyMassIndex bmi = new BodyMassIndex(height,weight);
-            bmiData.add(bmi);
+//            bmiData.add(bmi);
+
 
             displayBmiInfo(bmi);
         }
 
-        displayBmiStatistics(bmiData);
+//        displayBmiStatistics(bmiData);
     }
+
+
 
     public static boolean moreInput() {
         Scanner in = new Scanner(System.in);
@@ -28,15 +31,19 @@ public class App {
         return false;
     }
 
+    public static void checkInputPositive(double input) {
+        if (input <= 0) {
+            System.out.println("Please enter a positive number");
+            System.exit(0);
+        }
+    }
+
     public static double getUserHeight() {
         Scanner in = new Scanner(System.in);
         System.out.println("Please enter your height (inches): ");
         double height = in.nextDouble();
+        checkInputPositive(height);
 
-        if (height <= 0) {
-            System.out.println("Please enter a positive number.");
-            System.exit(0);
-        }
         return height;
     }
 
@@ -44,13 +51,18 @@ public class App {
         Scanner in = new Scanner(System.in);
         System.out.println("Please enter your weight (pounds): ");
         double weight = in.nextDouble();
+        checkInputPositive(weight);
 
-        if (weight <= 0) {
-            System.out.println("Please enter a positive number");
-            System.exit(0);
-        }
         return weight;
     }
+
+    private static void displayBmiInfo(BodyMassIndex bmi) {
+        System.out.println(bmi.bmiScore);
+        System.out.println(bmi.bmiCategory);
+    }
+
+
+
 
 
 
