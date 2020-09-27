@@ -1,25 +1,23 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class App {
 
     public static void main(String[] args) {
-//        ArrayList<BodyMassIndex> bmiData = new ArrayList<BodyMassIndex>();
+        ArrayList<BodyMassIndex> bmiData = new ArrayList<BodyMassIndex>();
 
         while(moreInput()) {
             double height = getUserHeight();
             double weight = getUserWeight();
 
             BodyMassIndex bmi = new BodyMassIndex(height,weight);
-//            bmiData.add(bmi);
-
+            bmiData.add(bmi);
 
             displayBmiInfo(bmi);
         }
 
-//        displayBmiStatistics(bmiData);
+        displayBmiStatistics(bmiData);
     }
-
-
 
     public static boolean moreInput() {
         Scanner in = new Scanner(System.in);
@@ -57,8 +55,18 @@ public class App {
     }
 
     private static void displayBmiInfo(BodyMassIndex bmi) {
-        System.out.println(bmi.bmiScore);
-        System.out.println(bmi.bmiCategory);
+        System.out.println("\nYour BMI Score: "+ bmi.bmiScore);
+        System.out.println("You fall under the category of: " + bmi.bmiCategory);
+        System.out.println();
+    }
+
+    private static void displayBmiStatistics(ArrayList<BodyMassIndex> bmiData) {
+        double average, sum = 0;
+        for (int i = 0; i < bmiData.size(); i++) {
+            sum = sum + bmiData.get(i).bmiScore;
+        }
+        average = sum / bmiData.size();
+        System.out.println("\nAverage BMI score: " + average);
     }
 
 
