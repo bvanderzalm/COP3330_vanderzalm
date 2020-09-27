@@ -29,13 +29,6 @@ public class App {
         return false;
     }
 
-    public static void checkInputPositive(double input) {
-        if (input <= 0) {
-            System.out.println("Please enter a positive number");
-            System.exit(0);
-        }
-    }
-
     public static double getUserHeight() {
         Scanner in = new Scanner(System.in);
         System.out.println("Please enter your height (inches): ");
@@ -54,8 +47,15 @@ public class App {
         return weight;
     }
 
+    public static void checkInputPositive(double input) {
+        if (input <= 0) {
+            System.out.println("Please enter a positive number");
+            System.exit(0);
+        }
+    }
+
     private static void displayBmiInfo(BodyMassIndex bmi) {
-        System.out.println("\nYour BMI Score: "+ bmi.bmiScore);
+        System.out.println("\nYour BMI Score: "+ String.format("%.1f", bmi.bmiScore));
         System.out.println("You fall under the category of: " + bmi.bmiCategory);
         System.out.println();
     }
@@ -66,13 +66,6 @@ public class App {
             sum = sum + bmiData.get(i).bmiScore;
         }
         average = sum / bmiData.size();
-        System.out.println("\nAverage BMI score: " + average);
+        System.out.println("\nAverage BMI score: " + String.format("%.1f", average));
     }
-
-
-
-
-
-
-
 }
