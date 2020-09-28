@@ -24,7 +24,7 @@ public class App {
         System.out.println("Would you like to add more data? (Y or N) ");
         String input = in.nextLine();
 
-        if (input.equals("Y") || input.equals("y"))
+        if (input.equals("Y"))
             return true;
         return false;
     }
