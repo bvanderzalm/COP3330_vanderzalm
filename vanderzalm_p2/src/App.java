@@ -10,7 +10,7 @@ public class App {
             double height = getUserHeight();
             double weight = getUserWeight();
 
-            BodyMassIndex bmi = new BodyMassIndex(height,weight);
+            BodyMassIndex bmi = new BodyMassIndex(height, weight);
             bmiData.add(bmi);
 
             displayBmiInfo(bmi);
