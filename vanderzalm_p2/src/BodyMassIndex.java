@@ -9,7 +9,8 @@ public class BodyMassIndex {
     }
 
     public double getBmiScore(double height, double weight) {
-        return 703 * (weight / (height * height));
+        double score = 703 * (weight / (height * height));
+        return Math.round(score * 10)/10.0;
     }
 
     public String getBmiCategory(double height, double weight) {
