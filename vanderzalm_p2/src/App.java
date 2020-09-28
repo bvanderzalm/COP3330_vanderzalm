@@ -55,7 +55,7 @@ public class App {
     }
 
     private static void displayBmiInfo(BodyMassIndex bmi) {
-        System.out.println("\nYour BMI Score: "+ String.format("%.1f", bmi.bmiScore));
+        System.out.println("\nYour BMI Score: "+ bmi.bmiScore);
         System.out.println("You fall under the category of: " + bmi.bmiCategory);
         System.out.println();
     }
