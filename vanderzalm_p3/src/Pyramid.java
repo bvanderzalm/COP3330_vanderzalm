@@ -24,6 +24,6 @@ public class Pyramid extends Shape3D {
     }
 
     public double getVolume() {
-        return -1;
+        return (length * width * height) / 3;
     }
 }
