@@ -1,6 +1,8 @@
+import java.lang.Math;
+
 public class Cube extends Shape3D {
 
-    private double edge;
+    private final double edge;
 
     public Cube(double edge) {
         super();
@@ -16,6 +18,6 @@ public class Cube extends Shape3D {
     }
 
     public double getVolume() {
-        return edge * edge * edge;
+        return Math.pow(edge, 3);
     }
 }
