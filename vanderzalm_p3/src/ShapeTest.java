@@ -70,7 +70,7 @@ class ShapeTest {
     }
 
     @Test
-    public void testCubeArea() {
+    public void testCubeArea2() {
         Shape shape = new Cube(0.5);
         assertEquals(1.5, shape.getArea());
     }
