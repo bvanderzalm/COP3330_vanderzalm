@@ -18,8 +18,4 @@ public class Cube extends Shape3D {
     public double getVolume() {
         return edge * edge * edge;
     }
-
-
-
-
 }
