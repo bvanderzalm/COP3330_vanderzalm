@@ -17,18 +17,9 @@ public class App {
                 displayMainMenuOptions();
                 int userInput = scnr.nextInt();
                 continueLoop = processUserInput(userInput);
-//                if (inputInRange(userInput)) {
-//                    if (readyToExit(userInput)) {
-//                        continueLoop = false;
-//                    } else {
-//                        listOperationMenu(userInput);
-//                    }
-//                } else {
-//                    System.out.print("Please enter a number between 1 and 3.\n\n");
-//                }
             } catch (InputMismatchException ex) {
                 scnr.nextLine();
-                System.out.print("Invalid input, please type a number between 1 and 3.\n\n");
+                System.out.print("Invalid input, please only enter the numbers listed above (1, 2, 3)\n\n");
             } catch (Exception ex) {
                 scnr.nextLine();
                 System.out.print("Unexpected error, please try again.\n\n");
@@ -44,7 +35,7 @@ public class App {
             else
                 listOperationMenu(userInput);
         }
-        else System.out.print("Please enter a number between 1 and 3.\n\n");
+        else System.out.print("That menu option doesn't exist. Please enter 1, 2, or 3.\n\n");
         return continueLoop;
     }
 
@@ -65,6 +56,7 @@ public class App {
     }
 
     public void listOperationMenu(int userInput) {
+        // Doesn't do anything yet but should create a new list or load a list based on userInput
         System.out.println("List Operation Menu");
     }
 
