@@ -27,6 +27,14 @@ public class App {
         } while(continueLoop);
     }
 
+    public void displayMainMenuOptions() {
+        System.out.print("Main Menu\n---------\n\n");
+        System.out.println("1) Create a new list");
+        System.out.println("2) Load an existing list");
+        System.out.print("3) Quit\n\n");
+        System.out.print("> ");
+    }
+
     public boolean processUserInput(int userInput) {
         boolean continueLoop = true;
         if (inputInRange(userInput)) {
@@ -37,14 +45,6 @@ public class App {
         }
         else System.out.print("That menu option doesn't exist. Please enter 1, 2, or 3.\n\n");
         return continueLoop;
-    }
-
-    public void displayMainMenuOptions() {
-        System.out.print("Main Menu\n---------\n\n");
-        System.out.println("1) Create a new list");
-        System.out.println("2) Load an existing list");
-        System.out.print("3) Quit\n\n");
-        System.out.print("> ");
     }
 
     public boolean inputInRange(int input) {
