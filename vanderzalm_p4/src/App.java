@@ -1,9 +1,16 @@
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
 
     private Scanner scnr = new Scanner(System.in);
+
+    private TaskList tasks;
+
+    public App() {
+        tasks = new TaskList();
+    }
 
     public static void main(String[] args) {
         App m = new App();
@@ -115,6 +122,37 @@ public class App {
     }
 
     public void taskMenuOptions(int userInput) {
-        System.out.println("Doing the things listed in items 1 - 8 based on your choice...");
+        if (userInput == 1) printCurrentTasks();
+        else if (userInput == 2) addTask();
+    }
+
+    public void printCurrentTasks() {
+        System.out.print("Current Tasks\n-------------\n");
+    }
+
+    public void addTask() {
+        TaskItem items = getTaskItems();
+
+        storeTaskItems(items);
+    }
+
+    public TaskItem getTaskItems() {
+        TaskItem items = null;
+        while(true) {
+            try {
+                String title = getTitle();
+                String description = getDescription();
+                LocalDate dueDate = getDueDate();
+                boolean completed = false;
+
+                items = new TaskItem(title, description, dueDate, completed);
+                break;
+            } catch (InvalidTitleException ex) {
+                System.out.println("WARNING: title must be at least 1 character long; task was not created.");
+            } catch (InvalidDueDateException ex) {
+                System.out.println("WARNING: invalid due date; task was not created.");
+            }
+        }
+        return items;
     }
 }
