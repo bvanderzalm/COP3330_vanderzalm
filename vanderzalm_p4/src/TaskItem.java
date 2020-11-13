@@ -31,6 +31,14 @@ public class TaskItem {
         LocalDate currentDate = LocalDate.now();
         return dueDate.isAfter(currentDate);
     }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public LocalDate getDueDate() {
+        return this.dueDate;
+    }
 }
 
 class InvalidTitleException extends IllegalArgumentException {
