@@ -19,4 +19,8 @@ public class TaskList {
     public TaskItem get(int index) {
         return tasks.get(index);
     }
+
+    public TaskItem remove(int index) {
+        return tasks.remove(index);
+    }
 }
