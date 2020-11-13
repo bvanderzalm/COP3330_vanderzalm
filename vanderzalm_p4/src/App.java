@@ -126,8 +126,8 @@ public class App {
     public void taskMenuOptions(int userInput) {
         if (userInput == 1) printCurrentTasks();
         else if (userInput == 2) addTask();
-        else if (userInput == 3) editTask();
-//        else if (userInput == 4) removeTask();
+        else if (userInput == 3) editTask(3);
+        else if (userInput == 4) editTask(4);
 //        else if (userInput == 5) markTask();
 //        else if (userInput == 6) unmarkTask();
 //        else if (userInput == 7) saveCurrentList();
@@ -142,17 +142,21 @@ public class App {
         System.out.print("\n");
     }
 
-    public void editTask() {
+    public void editTask(int menuUserInput) {
         printCurrentTasks();
-        if (checkForNoTasks()) {
+        if (zeroTasks()) {
             return;
         }
         boolean continueLoop = true;
         do {
             try {
-                System.out.print("Which task will you edit? ");
+                if (menuUserInput == 3) {
+                    System.out.print("Which task would you like to edit? ");
+                } else if(menuUserInput == 4) {
+                    System.out.print("Which task would you like to remove? ");
+                }
                 int selectedTask = scnr.nextInt();
-                continueLoop = processTaskListUserInput(selectedTask);
+                continueLoop = processCurrentListUserInput(selectedTask, menuUserInput);
             } catch (InputMismatchException ex) {
                 scnr.nextLine();
                 System.out.print("Invalid input. Please select one of the numbers listed above.\n\n");
@@ -163,28 +167,37 @@ public class App {
         } while(continueLoop);
     }
 
-    public boolean checkForNoTasks() {
+    public boolean zeroTasks() {
         if (tasks.getSize() == 0) {
-            System.out.print("You currently don't have any tasks that can be edited.\n\n");
+            System.out.print("You currently don't have any tasks.\n\n");
             return true;
         }
         return false;
     }
 
-    public boolean processTaskListUserInput(int selectedTask) {
+    public boolean processCurrentListUserInput(int selectedTask, int menuUserInput) {
         boolean continueLoop = true;
         if (taskListInputValid(selectedTask)) {
             continueLoop = false;
-            getNewTaskItems(selectedTask);
+            if (menuUserInput == 3) {
+                getNewTaskItems(selectedTask);
+            } else if (menuUserInput == 4) {
+                removeTask(selectedTask);
+            }
         }
         else
-            System.out.println("Invalid input, that task doesn't exist. Please try again.");
+            System.out.print("Invalid input, that task doesn't exist. Please try again.\n\n");
         return continueLoop;
     }
 
     public boolean taskListInputValid(int selectedTask) {
         int size = tasks.getSize();
         return (selectedTask >= 0 && selectedTask <= (size-1));
+    }
+
+    public void removeTask(int taskIndex) {
+        tasks.remove(taskIndex);
+        System.out.print("\n");
     }
 
     public void getNewTaskItems(int taskIndex) {
