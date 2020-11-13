@@ -36,9 +36,18 @@ public class TaskItem {
         return this.title;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public LocalDate getDueDate() {
         return this.dueDate;
     }
+
+    public boolean getCompleted() {
+        return this.completed;
+    }
+
 }
 
 class InvalidTitleException extends IllegalArgumentException {
