@@ -33,21 +33,44 @@ public class TaskItem {
     }
 
     public String getTitle() {
-        return this.title;
+        return title;
+    }
+
+    public void setTitle(String title) {
+        if (isTitleValid(title)) {
+            this.title = title;
+        } else {
+            throw new InvalidTitleException("Title is not valid; must be at least 1 character long.");
+        }
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDate getDueDate() {
-        return this.dueDate;
+        return dueDate;
     }
 
-    public boolean getCompleted() {
-        return this.completed;
+    public void setDueDate(LocalDate dueDate) {
+        if (isDueDateValid(dueDate)) {
+            this.dueDate = dueDate;
+        } else {
+            throw new InvalidDueDateException("Due date is not valid; cannot be before the current date.");
+        }
     }
 
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
 }
 
 class InvalidTitleException extends IllegalArgumentException {
