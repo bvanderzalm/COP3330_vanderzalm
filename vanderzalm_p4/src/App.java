@@ -129,14 +129,22 @@ public class App {
     }
 
     public void printCurrentTasks() {
-        System.out.print("Current Tasks\n-------------\n");
+        System.out.print("Current Tasks\n-------------\n\n");
+        for (int i = 0; i < tasks.getSize(); i++) {
+            TaskItem data = tasks.get(i);
+            System.out.println(i + " [" +data.getDueDate() + "] " +data.getTitle() + ": " +data.getDescription());
+        }
     }
 
     public void addTask() {
         TaskItem items = getTaskItems();
         System.out.print("\n");
 
-//        storeTaskItems(items);
+        storeTaskItems(items);
+    }
+
+    private void storeTaskItems(TaskItem items) {
+        tasks.add(items);
     }
 
     public TaskItem getTaskItems() {
