@@ -19,9 +19,4 @@ public class TaskList {
     public TaskItem get(int index) {
         return tasks.get(index);
     }
-
-
-
-
-
 }
