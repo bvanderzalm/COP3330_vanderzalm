@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class App {
 
-    private Scanner scnr = new Scanner(System.in);
+    private static Scanner scnr = new Scanner(System.in);
 
     private TaskList tasks;
 
@@ -27,7 +27,8 @@ public class App {
             } catch (InputMismatchException ex) {
                 scnr.nextLine();
                 System.out.print("Invalid input, only enter the numbers listed above (1, 2, 3).\n\n");
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 scnr.nextLine();
                 System.out.print("Unexpected error, please try again.\n\n");
             }
@@ -80,7 +81,8 @@ public class App {
             } catch (InputMismatchException ex) {
                 scnr.nextLine();
                 System.out.print("Invalid input, only enter the numbers listed above (1-8).\n\n");
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 scnr.nextLine();
                 System.out.print("Unexpected error, please try again.\n\n");
             }
@@ -132,12 +134,14 @@ public class App {
 
     public void addTask() {
         TaskItem items = getTaskItems();
+        System.out.print("\n");
 
-        storeTaskItems(items);
+//        storeTaskItems(items);
     }
 
     public TaskItem getTaskItems() {
         TaskItem items = null;
+        scnr.nextLine();
         while(true) {
             try {
                 String title = getTitle();
@@ -148,11 +152,51 @@ public class App {
                 items = new TaskItem(title, description, dueDate, completed);
                 break;
             } catch (InvalidTitleException ex) {
-                System.out.println("WARNING: title must be at least 1 character long; task was not created.");
+                System.out.print("WARNING: title must be at least 1 character long, please try again.\n\n");
             } catch (InvalidDueDateException ex) {
-                System.out.println("WARNING: invalid due date; task was not created.");
+                System.out.print("WARNING: invalid due date, please try again.\n\n");
             }
         }
         return items;
     }
+
+    private String getTitle() {
+        System.out.print("Task title: ");
+        return scnr.nextLine();
+    }
+
+    private String getDescription() {
+        System.out.print("Task description: ");
+        return scnr.nextLine();
+    }
+
+    private LocalDate getDueDate() {
+        System.out.print("Task due date (YYYY-MM-DD): ");
+        String date = scnr.nextLine();
+        return LocalDate.parse(date);
+//        if (checkDueDateMeetsStringFormat(date)) {
+//            return LocalDate.parse(date);
+//        } else {
+//            return LocalDate.parse("1900-01-01");
+//        }
+    }
+
+//    private boolean checkDueDateMeetsStringFormat(String date) {
+//        if (date.length() != 10) {
+//            return false;
+//        }
+//        // index i: 0123-56-89 (YYYY-MM-DD)
+//        for (int i = 0; i <= 10; i++) {
+//            if (i == 4 || i == 7) {
+//                if (date.charAt(i) != '-') {
+//                    return false;
+//                }
+//            }
+//            else if (date.charAt(i) < '0' || date.charAt(i) > '9') {
+//                return false;
+//            }
+//        }
+//
+//        return true;
+//    }
 }
