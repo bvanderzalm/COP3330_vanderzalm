@@ -126,14 +126,96 @@ public class App {
     public void taskMenuOptions(int userInput) {
         if (userInput == 1) printCurrentTasks();
         else if (userInput == 2) addTask();
+        else if (userInput == 3) editTask();
+//        else if (userInput == 4) removeTask();
+//        else if (userInput == 5) markTask();
+//        else if (userInput == 6) unmarkTask();
+//        else if (userInput == 7) saveCurrentList();
     }
 
     public void printCurrentTasks() {
         System.out.print("Current Tasks\n-------------\n\n");
         for (int i = 0; i < tasks.getSize(); i++) {
             TaskItem data = tasks.get(i);
-            System.out.println(i + " [" +data.getDueDate() + "] " +data.getTitle() + ": " +data.getDescription());
+            System.out.println(i + ") [" +data.getDueDate() + "] " +data.getTitle() + ": " +data.getDescription());
         }
+        System.out.print("\n");
+    }
+
+    public void editTask() {
+        printCurrentTasks();
+        if (checkForNoTasks()) {
+            return;
+        }
+        boolean continueLoop = true;
+        do {
+            try {
+                System.out.print("Which task will you edit? ");
+                int selectedTask = scnr.nextInt();
+                continueLoop = processTaskListUserInput(selectedTask);
+            } catch (InputMismatchException ex) {
+                scnr.nextLine();
+                System.out.print("Invalid input. Please select one of the numbers listed above.\n\n");
+            } catch (Exception ex) {
+                scnr.nextLine();
+                System.out.print("Unexpected error, please try again.\n\n");
+            }
+        } while(continueLoop);
+    }
+
+    public boolean checkForNoTasks() {
+        if (tasks.getSize() == 0) {
+            System.out.print("You currently don't have any tasks that can be edited.\n\n");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean processTaskListUserInput(int selectedTask) {
+        boolean continueLoop = true;
+        if (taskListInputValid(selectedTask)) {
+            continueLoop = false;
+            getNewTaskItems(selectedTask);
+        }
+        else
+            System.out.println("Invalid input, that task doesn't exist. Please try again.");
+        return continueLoop;
+    }
+
+    public boolean taskListInputValid(int selectedTask) {
+        int size = tasks.getSize();
+        return (selectedTask >= 0 && selectedTask <= (size-1));
+    }
+
+    public void getNewTaskItems(int taskIndex) {
+        scnr.nextLine();
+        TaskItem task = tasks.get(taskIndex);
+        while(true) {
+            try {
+                System.out.print("Enter a new title for task " + taskIndex + ": ");
+                String title = getTitle();
+                System.out.print("Enter a new description for task " + taskIndex + ": ");
+                String description = getDescription();
+                System.out.print("Enter a new task due date (YYYY-MM-DD) for task " + taskIndex + ": ");
+                LocalDate dueDate = getDueDate();
+
+                setNewTaskItems(task, title, description, dueDate);
+                System.out.print("\n");
+                break;
+            } catch (InvalidTitleException ex) {
+                System.out.print("WARNING: title must be at least 1 character long, please try again.\n\n");
+            } catch (InvalidDueDateException ex) {
+                System.out.print("WARNING: invalid due date, please try again.\n\n");
+            } catch (Exception ex) {
+                System.out.print("Unexpected error. Tip: make sure you are typing in the (YYYY-MM-DD) format.\n\n");
+            }
+        }
+    }
+
+    public void setNewTaskItems(TaskItem task, String title, String description, LocalDate dueDate) {
+        task.setTitle(title);
+        task.setDescription(description);
+        task.setDueDate(dueDate);
     }
 
     public void addTask() {
@@ -152,8 +234,11 @@ public class App {
         scnr.nextLine();
         while(true) {
             try {
+                System.out.print("Task title: ");
                 String title = getTitle();
+                System.out.print("Task description: ");
                 String description = getDescription();
+                System.out.print("Task due date (YYYY-MM-DD): ");
                 LocalDate dueDate = getDueDate();
                 boolean completed = false;
 
@@ -171,17 +256,14 @@ public class App {
     }
 
     private String getTitle() {
-        System.out.print("Task title: ");
         return scnr.nextLine();
     }
 
     private String getDescription() {
-        System.out.print("Task description: ");
         return scnr.nextLine();
     }
 
     private LocalDate getDueDate() {
-        System.out.print("Task due date (YYYY-MM-DD): ");
         String date = scnr.nextLine();
         return LocalDate.parse(date);
     }
