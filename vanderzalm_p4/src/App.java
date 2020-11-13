@@ -155,6 +155,8 @@ public class App {
                 System.out.print("WARNING: title must be at least 1 character long, please try again.\n\n");
             } catch (InvalidDueDateException ex) {
                 System.out.print("WARNING: invalid due date, please try again.\n\n");
+            } catch (Exception ex) {
+                System.out.print("Unexpected error. Tip: make sure you are typing in the (YYYY-MM-DD) format.\n\n");
             }
         }
         return items;
@@ -174,29 +176,5 @@ public class App {
         System.out.print("Task due date (YYYY-MM-DD): ");
         String date = scnr.nextLine();
         return LocalDate.parse(date);
-//        if (checkDueDateMeetsStringFormat(date)) {
-//            return LocalDate.parse(date);
-//        } else {
-//            return LocalDate.parse("1900-01-01");
-//        }
     }
-
-//    private boolean checkDueDateMeetsStringFormat(String date) {
-//        if (date.length() != 10) {
-//            return false;
-//        }
-//        // index i: 0123-56-89 (YYYY-MM-DD)
-//        for (int i = 0; i <= 10; i++) {
-//            if (i == 4 || i == 7) {
-//                if (date.charAt(i) != '-') {
-//                    return false;
-//                }
-//            }
-//            else if (date.charAt(i) < '0' || date.charAt(i) > '9') {
-//                return false;
-//            }
-//        }
-//
-//        return true;
-//    }
 }
