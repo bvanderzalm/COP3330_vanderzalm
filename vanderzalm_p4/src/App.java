@@ -124,38 +124,50 @@ public class App {
     }
 
     public void taskMenuOptions(int userInput) {
-        if (userInput == 1) printCurrentTasks();
+        if (userInput == 1) printCurrentTasks(1);
         else if (userInput == 2) addTask();
         else if (userInput == 3) editTask(3);
         else if (userInput == 4) editTask(4);
-//        else if (userInput == 5) markTask();
-//        else if (userInput == 6) unmarkTask();
+        else if (userInput == 5) editTask(5);
+        else if (userInput == 6) editTask(6);
 //        else if (userInput == 7) saveCurrentList();
-    }
-
-    public void printCurrentTasks() {
-        System.out.print("Current Tasks\n-------------\n\n");
-        for (int i = 0; i < tasks.getSize(); i++) {
-            TaskItem data = tasks.get(i);
-            System.out.println(i + ") [" +data.getDueDate() + "] " +data.getTitle() + ": " +data.getDescription());
-        }
         System.out.print("\n");
     }
 
+    public void printCurrentTasks(int menuUserInput) {
+        if (menuUserInput == 5) {
+            System.out.print("Uncompleted Tasks\n-------------\n");
+        } else if (menuUserInput == 6) {
+            System.out.print("Completed Tasks\n-------------\n");
+        } else {
+            System.out.print("Current Tasks\n-------------\n");
+        }
+        printAllTasks();
+        System.out.print("\n\n");
+    }
+
+    public void printAllTasks() {
+        for (int i = 0; i < tasks.getSize(); i++) {
+            TaskItem task = tasks.get(i);
+            System.out.print("\n"+i + ") ");
+            if (task.isCompleted()) {
+                System.out.print("***");
+            }
+            System.out.print(" [" +task.getDueDate() + "] " +task.getTitle() + ": " +task.getDescription());
+        }
+    }
+
     public void editTask(int menuUserInput) {
-        printCurrentTasks();
+        printCurrentTasks(menuUserInput);
         if (zeroTasks()) {
             return;
         }
         boolean continueLoop = true;
         do {
             try {
-                if (menuUserInput == 3) {
-                    System.out.print("Which task would you like to edit? ");
-                } else if(menuUserInput == 4) {
-                    System.out.print("Which task would you like to remove? ");
-                }
+                printEditTaskPrompt(menuUserInput);
                 int selectedTask = scnr.nextInt();
+
                 continueLoop = processCurrentListUserInput(selectedTask, menuUserInput);
             } catch (InputMismatchException ex) {
                 scnr.nextLine();
@@ -175,6 +187,18 @@ public class App {
         return false;
     }
 
+    public void printEditTaskPrompt(int menuUserInput) {
+        if (menuUserInput == 3) {
+            System.out.print("Which task would you like to edit? ");
+        } else if (menuUserInput == 4) {
+            System.out.print("Which task would you like to remove? ");
+        } else if (menuUserInput == 5) {
+            System.out.print("Which task would you like to mark as completed? ");
+        } else if (menuUserInput == 6) {
+            System.out.print("Which task would you like to unmark as completed? ");
+        }
+    }
+
     public boolean processCurrentListUserInput(int selectedTask, int menuUserInput) {
         boolean continueLoop = true;
         if (taskListInputValid(selectedTask)) {
@@ -183,6 +207,10 @@ public class App {
                 getNewTaskItems(selectedTask);
             } else if (menuUserInput == 4) {
                 removeTask(selectedTask);
+            } else if (menuUserInput == 5) {
+                markTaskCompleted(selectedTask);
+            } else if (menuUserInput == 6) {
+                markTaskUncompleted(selectedTask);
             }
         }
         else
@@ -197,7 +225,16 @@ public class App {
 
     public void removeTask(int taskIndex) {
         tasks.remove(taskIndex);
-        System.out.print("\n");
+    }
+
+    public void markTaskCompleted(int taskIndex) {
+        TaskItem task = tasks.get(taskIndex);
+        task.setCompleted(true);
+    }
+
+    public void markTaskUncompleted(int taskIndex) {
+        TaskItem task = tasks.get(taskIndex);
+        task.setCompleted(false);
     }
 
     public void getNewTaskItems(int taskIndex) {
@@ -213,7 +250,6 @@ public class App {
                 LocalDate dueDate = getDueDate();
 
                 setNewTaskItems(task, title, description, dueDate);
-                System.out.print("\n");
                 break;
             } catch (InvalidTitleException ex) {
                 System.out.print("WARNING: title must be at least 1 character long, please try again.\n\n");
@@ -233,7 +269,6 @@ public class App {
 
     public void addTask() {
         TaskItem items = getTaskItems();
-        System.out.print("\n");
 
         storeTaskItems(items);
     }
