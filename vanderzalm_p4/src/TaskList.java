@@ -39,6 +39,95 @@ public class TaskList {
         return tasks.isEmpty();
     }
 
+    public boolean indexValid(int index) {
+        int size = tasks.size();
+        if (index >= 0 && index <= (size-1))
+            return true;
+        else
+            throw new InvalidTaskIndexException("Invalid index, that task doesn't exist.");
+    }
+
+    public void markTaskCompleted(int index) {
+        if (!indexValid(index)) {
+            throw new InvalidTaskIndexException("Invalid index, that task doesn't exist.");
+        } else {
+            TaskItem task = tasks.get(index);
+            task.setCompletedStatus(true);
+        }
+    }
+
+    public void markTaskUncompleted(int index) {
+        if (!indexValid(index)) {
+            throw new InvalidTaskIndexException("Invalid index, that task doesn't exist.");
+        } else {
+            TaskItem task = tasks.get(index);
+            task.setCompletedStatus(false);
+        }
+    }
+
+    public String getTaskItemDescription(int index) {
+        if (!indexValid(index)) {
+            throw new InvalidTaskIndexException("Invalid index, that task doesn't exist.");
+        } else {
+            TaskItem task = tasks.get(index);
+            return task.getDescription();
+        }
+    }
+
+    public void editTaskDescription(int index, String description) {
+        if (!indexValid(index)) {
+            throw new InvalidTaskIndexException("Invalid index, that task doesn't exist.");
+        } else {
+            TaskItem task = tasks.get(index);
+            task.setDescription(description);
+        }
+    }
+
+    public LocalDate getTaskItemDueDate(int index) {
+        if (!indexValid(index)) {
+            throw new InvalidTaskIndexException("Invalid index, that task doesn't exist.");
+        } else {
+            TaskItem task = tasks.get(index);
+            return task.getDueDate();
+        }
+    }
+
+    public void editTaskDueDate(int index, LocalDate dueDate) {
+        if (!indexValid(index)) {
+            throw new InvalidTaskIndexException("Invalid index, that task doesn't exist.");
+        } else {
+            TaskItem task = tasks.get(index);
+            task.setDueDate(dueDate);
+        }
+    }
+
+    public String getTaskItemTitle(int index) {
+        if (!indexValid(index)) {
+            throw new InvalidTaskIndexException("Invalid index, that task doesn't exist.");
+        } else {
+            TaskItem task = tasks.get(index);
+            return task.getTitle();
+        }
+    }
+
+    public void editTaskTitle(int index, String title) {
+        if (!indexValid(index)) {
+            throw new InvalidTaskIndexException("Invalid index, that task doesn't exist.");
+        } else {
+            TaskItem task = tasks.get(index);
+            task.setTitle(title);
+        }
+    }
+
+    public boolean getTaskItemCompletedStatus(int index) {
+        if (!indexValid(index)) {
+            throw new InvalidTaskIndexException("Invalid index, that task doesn't exist.");
+        } else {
+            TaskItem task = tasks.get(index);
+            return task.getCompletedStatus();
+        }
+    }
+
     public void write(String filename) {
         String completedStatus = null;
         try (Formatter output = new Formatter(filename)) {
@@ -52,7 +141,6 @@ public class TaskList {
                 output.format("%s%n%s%n%s%n%s%n",
                         task.getTitle(), task.getDescription(), task.getDueDateString(), completedStatus);
             }
-            System.out.println("Task list has been saved as " + filename);
 
         } catch (FileNotFoundException ex) {
             System.out.println("Error, unable to find the file.");
@@ -76,7 +164,6 @@ public class TaskList {
                 TaskItem task = new TaskItem(title, description, dueDate, completedStatus);
                 tasks.add(task);
             }
-            System.out.println("Task list has been loaded from " + filename + "\n");
         } catch (NoSuchElementException | IllegalStateException | IOException ex) {
             System.out.println("Error occurred after attempting to load " + filename);
         } catch (Exception ex) {
