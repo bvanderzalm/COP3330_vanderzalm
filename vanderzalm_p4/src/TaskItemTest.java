@@ -23,14 +23,12 @@ class TaskItemTest {
 
     @Test
     public void creatingTaskItemSucceedsWithValidDueDate() {
-        TaskItem t = new TaskItem("Task1", "", validDate, false);
-        assertEquals(validDate, t.getDueDate());
+        assertDoesNotThrow(() -> new TaskItem("Task 1", "", validDate, true));
     }
 
     @Test
     public void creatingTaskItemSucceedsWithValidTitle() {
-        TaskItem t = new TaskItem("Task1", "", validDate, false);
-        assertEquals("Task1", t.getTitle());
+        assertDoesNotThrow(() -> new TaskItem("Valid Task Title", "", validDate, true));
     }
 
     @Test
