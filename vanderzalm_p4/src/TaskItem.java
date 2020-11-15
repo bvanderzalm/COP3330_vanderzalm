@@ -29,7 +29,7 @@ public class TaskItem {
 
     private boolean isDueDateValid(LocalDate dueDate) {
         LocalDate currentDate = LocalDate.now();
-        return dueDate.isAfter(currentDate);
+        return (dueDate.isAfter(currentDate) || dueDate.isEqual(currentDate));
     }
 
     public String getTitle() {
@@ -72,7 +72,7 @@ public class TaskItem {
         return completedStatus;
     }
 
-    public void setCompleted(boolean completedStatus) {
+    public void setCompletedStatus(boolean completedStatus) {
         this.completedStatus = completedStatus;
     }
 }
