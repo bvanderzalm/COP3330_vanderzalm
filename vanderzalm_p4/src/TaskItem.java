@@ -6,7 +6,7 @@ public class TaskItem {
     private LocalDate dueDate;
     private boolean completedStatus;
 
-    public TaskItem(String title, String description, LocalDate dueDate, boolean completed) {
+    public TaskItem(String title, String description, LocalDate dueDate, boolean completedStatus) {
 
         if (isTitleValid(title)) {
             this.title = title;
@@ -17,7 +17,7 @@ public class TaskItem {
         if (isDueDateValid(dueDate)) {
             this.dueDate = dueDate;
             this.description = description;
-            this.completedStatus = false;
+            this.completedStatus = completedStatus;
         } else {
             throw new InvalidDueDateException("Due date is not valid; cannot be before the current date.");
         }
