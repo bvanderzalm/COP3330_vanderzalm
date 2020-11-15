@@ -67,8 +67,17 @@ public class App {
         if (userInput == 1) {
             System.out.print("New task list has been created\n\n");
             listOperationMenu();
-        } else
-            System.out.print("Load list\n");
+        } else if (userInput == 2) {
+            loadExistingList();
+            listOperationMenu();
+        }
+    }
+
+    public void loadExistingList() {
+        scnr.nextLine();
+        System.out.print("Enter the filename you wish to load: ");
+        String fileName = scnr.nextLine();
+        tasks.load(fileName);
     }
 
     public void listOperationMenu() {
@@ -181,9 +190,9 @@ public class App {
             TaskItem task = tasks.get(i);
             System.out.print("\n"+i + ") ");
             if (task.getCompletedStatus() == true) {
-                System.out.print("***");
+                System.out.print("*** ");
             }
-            System.out.print(" [" +task.getDueDate() + "] " +task.getTitle() + ": " +task.getDescription());
+            System.out.print("[" +task.getDueDate() + "] " +task.getTitle() + ": " +task.getDescription());
         }
     }
 
