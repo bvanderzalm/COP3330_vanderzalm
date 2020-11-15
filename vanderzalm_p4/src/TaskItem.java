@@ -56,6 +56,10 @@ public class TaskItem {
         return dueDate;
     }
 
+    public String getDueDateString() {
+        return dueDate.toString();
+    }
+
     public void setDueDate(LocalDate dueDate) {
         if (isDueDateValid(dueDate)) {
             this.dueDate = dueDate;
