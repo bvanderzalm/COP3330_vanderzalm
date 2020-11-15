@@ -272,7 +272,7 @@ public class App {
             System.out.println("Task " + taskIndex + " was already marked as completed. Returning to menu.");
             return;
         }
-        task.setCompleted(true);
+        task.setCompletedStatus(true);
     }
 
     public void markTaskUncompleted(int taskIndex) {
@@ -281,7 +281,7 @@ public class App {
             System.out.println("Task " + taskIndex + " was already marked as uncompleted. Returning to menu.");
             return;
         }
-        task.setCompleted(false);
+        task.setCompletedStatus(false);
     }
 
     public TaskItem getTaskItems(int menuUserInput, int taskIndex) {
