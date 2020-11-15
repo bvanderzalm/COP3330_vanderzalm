@@ -76,8 +76,9 @@ public class App {
     private void loadExistingList() {
         scnr.nextLine();
         System.out.print("Enter the filename you wish to load: ");
-        String fileName = scnr.nextLine();
-        tasks.load(fileName);
+        String filename = scnr.nextLine();
+        tasks.load(filename);
+        System.out.println("Task list has been loaded from " + filename + "\n");
     }
 
     private void listOperationMenu() {
@@ -120,8 +121,12 @@ public class App {
             } else {
                 taskMenuOptions(userInput);
                 if (userInput == 7) {
-                    continueLoop = false;
-                    destroyListInRAM();
+                    if (tasks.isEmpty()) {
+                        continueLoop = true;
+                    } else {
+                        continueLoop = false;
+                        destroyListInRAM();
+                    }
                 }
             }
         }
@@ -140,7 +145,7 @@ public class App {
 
     private void taskMenuOptions(int userInput) {
         if (userInput == 1) printCurrentTasks(1);
-        else if (userInput == 2) addTask(2);
+        else if (userInput == 2) addTask();
         else if (userInput == 3) editTask(3);
         else if (userInput == 4) editTask(4);
         else if (userInput == 5) editTask(5);
@@ -150,10 +155,15 @@ public class App {
     }
 
     private void saveCurrentList() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks have been created yet, saving failed.");
+            return;
+        }
         scnr.nextLine();
         System.out.print("Enter the filename to save as: ");
-        String fileName = scnr.nextLine();
-        tasks.write(fileName);
+        String filename = scnr.nextLine();
+        tasks.write(filename);
+        System.out.println("Task list has been saved as " + filename);
     }
 
     private void destroyListInRAM() {
@@ -162,9 +172,9 @@ public class App {
         tasks.clear();
     }
 
-    private void addTask(int menuUserInput) {
-        // -1 is TaskIndex, but since we are creating new Task that variable isn't needed.
-        TaskItem items = getTaskItems(menuUserInput, -1);
+    private void addTask() {
+        // -1 is TaskIndex, but since we are creating a new Task that variable isn't needed.
+        TaskItem items = getTaskItems(2, -1);
 
         storeTaskItems(items);
     }
@@ -211,6 +221,9 @@ public class App {
             } catch (InputMismatchException ex) {
                 scnr.nextLine();
                 System.out.print("Invalid input. Please select one of the numbers listed above.\n\n");
+            } catch (InvalidTaskIndexException ex) {
+                scnr.nextLine();
+                System.out.print("Error, that task doesn't exist. Please select one of the numbers listed above.\n\n");
             } catch (Exception ex) {
                 scnr.nextLine();
                 System.out.print("Unexpected error, please try again.\n\n");
@@ -252,14 +265,11 @@ public class App {
                 markTaskUncompleted(selectedTask);
             }
         }
-        else
-            System.out.print("Invalid input, that task doesn't exist. Please try again.\n\n");
         return continueLoop;
     }
 
-    private boolean taskListInputValid(int selectedTask) {
-        int size = tasks.getSize();
-        return (selectedTask >= 0 && selectedTask <= (size-1));
+    public boolean taskListInputValid(int selectedTask) {
+        return tasks.indexValid(selectedTask);
     }
 
     private void removeTask(int taskIndex) {
@@ -267,21 +277,20 @@ public class App {
     }
 
     private void markTaskCompleted(int taskIndex) {
-        TaskItem task = tasks.get(taskIndex);
-        if (task.getCompletedStatus() == true) {
-            System.out.println("Task " + taskIndex + " was already marked as completed. Returning to menu.");
-            return;
-        }
-        task.setCompletedStatus(true);
+//        if (task.getCompletedStatus() == true) {
+//            System.out.println("Task " + taskIndex + " was already marked as completed. Returning to menu.");
+//            return;
+//        }
+        tasks.markTaskCompleted(taskIndex);
+
     }
 
     private void markTaskUncompleted(int taskIndex) {
-        TaskItem task = tasks.get(taskIndex);
-        if (task.getCompletedStatus() == false) {
-            System.out.println("Task " + taskIndex + " was already marked as uncompleted. Returning to menu.");
-            return;
-        }
-        task.setCompletedStatus(false);
+//        if (task.getCompletedStatus() == false) {
+//            System.out.println("Task " + taskIndex + " was already marked as uncompleted. Returning to menu.");
+//            return;
+//        }
+        tasks.markTaskUncompleted(taskIndex);
     }
 
     private TaskItem getTaskItems(int menuUserInput, int taskIndex) {
@@ -303,7 +312,7 @@ public class App {
                     boolean completed = false;
                     task = new TaskItem(title, description, dueDate, completed);
                 } else if (menuUserInput == 3) {
-                    setNewTaskItems(task, title, description, dueDate);
+                    setNewTaskItems(taskIndex, title, description, dueDate);
                 }
                 break;
             } catch (InvalidTitleException ex) {
@@ -317,10 +326,10 @@ public class App {
         return task;
     }
 
-    private void setNewTaskItems(TaskItem task, String title, String description, LocalDate dueDate) {
-        task.setTitle(title);
-        task.setDescription(description);
-        task.setDueDate(dueDate);
+    private void setNewTaskItems(int taskIndex, String title, String description, LocalDate dueDate) {
+        tasks.editTaskTitle(taskIndex, title);
+        tasks.editTaskDescription(taskIndex, description);
+        tasks.editTaskDueDate(taskIndex, dueDate);
     }
 
     private void printTitlePrompt(int menuUserInput, int taskIndex) {
