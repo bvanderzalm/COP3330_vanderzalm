@@ -17,7 +17,7 @@ public class App {
         m.mainMenu();
     }
 
-    public void mainMenu() {
+    private void mainMenu() {
         boolean continueLoop = true;
         do {
             try {
@@ -35,7 +35,7 @@ public class App {
         } while(continueLoop);
     }
 
-    public void displayMainMenuOptions() {
+    private void displayMainMenuOptions() {
         System.out.print("Main Menu\n---------\n\n");
         System.out.println("1) Create a new list");
         System.out.println("2) Load an existing list");
@@ -43,7 +43,7 @@ public class App {
         System.out.print("> ");
     }
 
-    public boolean processMainMenuUserInput(int userInput) {
+    private boolean processMainMenuUserInput(int userInput) {
         boolean continueLoop = true;
         if (mainMenuInputValid(userInput)) {
             if (readyToExitProgram(userInput))
@@ -55,15 +55,15 @@ public class App {
         return continueLoop;
     }
 
-    public boolean mainMenuInputValid(int userInput) {
+    private boolean mainMenuInputValid(int userInput) {
         return (userInput >= 1 && userInput <= 3);
     }
 
-    public boolean readyToExitProgram(int userInput) {
+    private boolean readyToExitProgram(int userInput) {
         return (userInput == 3);
     }
 
-    public void createOrLoadList(int userInput) {
+    private void createOrLoadList(int userInput) {
         if (userInput == 1) {
             System.out.print("New task list has been created\n\n");
             listOperationMenu();
@@ -73,14 +73,14 @@ public class App {
         }
     }
 
-    public void loadExistingList() {
+    private void loadExistingList() {
         scnr.nextLine();
         System.out.print("Enter the filename you wish to load: ");
         String fileName = scnr.nextLine();
         tasks.load(fileName);
     }
 
-    public void listOperationMenu() {
+    private void listOperationMenu() {
         boolean continueLoop = true;
         do {
             try {
@@ -98,7 +98,7 @@ public class App {
         } while(continueLoop);
     }
 
-    public void displayTaskMenuOptions() {
+    private void displayTaskMenuOptions() {
         System.out.print("List Operation Menu\n---------\n\n");
         System.out.println("1) View the list");
         System.out.println("2) Add an item");
@@ -111,7 +111,7 @@ public class App {
         System.out.print("\n> ");
     }
 
-    public boolean processTaskMenuUserInput(int userInput) {
+    private boolean processTaskMenuUserInput(int userInput) {
         boolean continueLoop = true;
         if (taskMenuInputValid(userInput)) {
             if (readyToQuitTaskMenu(userInput)) {
@@ -130,15 +130,15 @@ public class App {
         return continueLoop;
     }
 
-    public boolean taskMenuInputValid(int userInput) {
+    private boolean taskMenuInputValid(int userInput) {
         return (userInput >= 1 && userInput <= 8);
     }
 
-    public boolean readyToQuitTaskMenu(int userInput) {
+    private boolean readyToQuitTaskMenu(int userInput) {
         return (userInput == 8);
     }
 
-    public void taskMenuOptions(int userInput) {
+    private void taskMenuOptions(int userInput) {
         if (userInput == 1) printCurrentTasks(1);
         else if (userInput == 2) addTask(2);
         else if (userInput == 3) editTask(3);
@@ -149,7 +149,7 @@ public class App {
         System.out.print("\n");
     }
 
-    public void saveCurrentList() {
+    private void saveCurrentList() {
         scnr.nextLine();
         System.out.print("Enter the filename to save as: ");
         String fileName = scnr.nextLine();
@@ -162,7 +162,7 @@ public class App {
         tasks.clear();
     }
 
-    public void addTask(int menuUserInput) {
+    private void addTask(int menuUserInput) {
         // -1 is TaskIndex, but since we are creating new Task that variable isn't needed.
         TaskItem items = getTaskItems(menuUserInput, -1);
 
@@ -173,7 +173,7 @@ public class App {
         tasks.add(items);
     }
 
-    public void printCurrentTasks(int menuUserInput) {
+    private void printCurrentTasks(int menuUserInput) {
         if (menuUserInput == 5) {
             System.out.print("Uncompleted Tasks\n-------------\n");
         } else if (menuUserInput == 6) {
@@ -185,7 +185,7 @@ public class App {
         System.out.print("\n\n");
     }
 
-    public void printAllTasks() {
+    private void printAllTasks() {
         for (int i = 0; i < tasks.getSize(); i++) {
             TaskItem task = tasks.get(i);
             System.out.print("\n"+i + ") ");
@@ -196,7 +196,7 @@ public class App {
         }
     }
 
-    public void editTask(int menuUserInput) {
+    private void editTask(int menuUserInput) {
         printCurrentTasks(menuUserInput);
         if (zeroTasks()) {
             return;
@@ -218,7 +218,7 @@ public class App {
         } while(continueLoop);
     }
 
-    public boolean zeroTasks() {
+    private boolean zeroTasks() {
         if (tasks.getSize() == 0) {
             System.out.print("You currently don't have any tasks.\n\n");
             return true;
@@ -226,7 +226,7 @@ public class App {
         return false;
     }
 
-    public void printEditTaskPrompt(int menuUserInput) {
+    private void printEditTaskPrompt(int menuUserInput) {
         if (menuUserInput == 3) {
             System.out.print("Which task would you like to edit? ");
         } else if (menuUserInput == 4) {
@@ -238,7 +238,7 @@ public class App {
         }
     }
 
-    public boolean processCurrentListUserInput(int selectedTask, int menuUserInput) {
+    private boolean processCurrentListUserInput(int selectedTask, int menuUserInput) {
         boolean continueLoop = true;
         if (taskListInputValid(selectedTask)) {
             continueLoop = false;
@@ -257,16 +257,16 @@ public class App {
         return continueLoop;
     }
 
-    public boolean taskListInputValid(int selectedTask) {
+    private boolean taskListInputValid(int selectedTask) {
         int size = tasks.getSize();
         return (selectedTask >= 0 && selectedTask <= (size-1));
     }
 
-    public void removeTask(int taskIndex) {
+    private void removeTask(int taskIndex) {
         tasks.remove(taskIndex);
     }
 
-    public void markTaskCompleted(int taskIndex) {
+    private void markTaskCompleted(int taskIndex) {
         TaskItem task = tasks.get(taskIndex);
         if (task.getCompletedStatus() == true) {
             System.out.println("Task " + taskIndex + " was already marked as completed. Returning to menu.");
@@ -275,7 +275,7 @@ public class App {
         task.setCompletedStatus(true);
     }
 
-    public void markTaskUncompleted(int taskIndex) {
+    private void markTaskUncompleted(int taskIndex) {
         TaskItem task = tasks.get(taskIndex);
         if (task.getCompletedStatus() == false) {
             System.out.println("Task " + taskIndex + " was already marked as uncompleted. Returning to menu.");
@@ -284,7 +284,7 @@ public class App {
         task.setCompletedStatus(false);
     }
 
-    public TaskItem getTaskItems(int menuUserInput, int taskIndex) {
+    private TaskItem getTaskItems(int menuUserInput, int taskIndex) {
         scnr.nextLine();
         TaskItem task = null;
         if (menuUserInput == 3) {
@@ -317,7 +317,7 @@ public class App {
         return task;
     }
 
-    public void setNewTaskItems(TaskItem task, String title, String description, LocalDate dueDate) {
+    private void setNewTaskItems(TaskItem task, String title, String description, LocalDate dueDate) {
         task.setTitle(title);
         task.setDescription(description);
         task.setDueDate(dueDate);
