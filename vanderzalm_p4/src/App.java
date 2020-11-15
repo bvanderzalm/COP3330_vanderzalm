@@ -105,10 +105,16 @@ public class App {
     public boolean processTaskMenuUserInput(int userInput) {
         boolean continueLoop = true;
         if (taskMenuInputValid(userInput)) {
-            if (readyToQuitTaskMenu(userInput))
+            if (readyToQuitTaskMenu(userInput)) {
                 continueLoop = false;
-            else
+                destroyListInRAM();
+            } else {
                 taskMenuOptions(userInput);
+                if (userInput == 7) {
+                    continueLoop = false;
+                    destroyListInRAM();
+                }
+            }
         }
         else
             System.out.print("That menu option doesn't exist. Please enter a number 1 through 8.\n\n");
@@ -130,8 +136,21 @@ public class App {
         else if (userInput == 4) editTask(4);
         else if (userInput == 5) editTask(5);
         else if (userInput == 6) editTask(6);
-//        else if (userInput == 7) saveCurrentList();
+        else if (userInput == 7) saveCurrentList();
         System.out.print("\n");
+    }
+
+    public void saveCurrentList() {
+        scnr.nextLine();
+        System.out.print("Enter the filename to save as: ");
+        String fileName = scnr.nextLine();
+        tasks.write(fileName);
+    }
+
+    private void destroyListInRAM() {
+        if (tasks.isEmpty())
+            return;
+        tasks.clear();
     }
 
     public void addTask(int menuUserInput) {
