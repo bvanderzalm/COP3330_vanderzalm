@@ -7,10 +7,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class TaskListTest {
 
     // File on github and is used for testing.
-    // and see TaskItemTest for note on LocalDate
-//    private String filename = "TestCaseTaskList.txt";
-    private String filename = "bradley.txt";
-    private LocalDate validDate = LocalDate.parse("3000-01-01");
+    // TaskItem requires LocalDate variable so this converts it from a string.
+    private final String filename = "TestCaseTaskListOutput.txt";
+    private final LocalDate validDate = LocalDate.parse("3000-01-01");
 
     @Test
     public void addingTaskItemsIncreasesSize() {
@@ -43,10 +42,25 @@ class TaskListTest {
         assertThrows(InvalidTaskIndexException.class, () -> tasks.markTaskCompleted(1000));
     }
 
-//    @Test
-//    public void editingTaskItemChangesValues() {
-//
-//    }
+    @Test
+    public void editingTaskItemChangesValues() {
+        TaskList tasks = new TaskList();
+        TaskItem t = new TaskItem("Title", "", validDate, false);
+        tasks.add(t);
+
+        String editedString = "Hello there";
+        LocalDate editedDate = LocalDate.parse("2100-01-01");
+
+        assertDoesNotThrow(() -> tasks.editTaskTitle(0, editedString));
+        assertDoesNotThrow(() -> tasks.editTaskDescription(0, editedString));
+        assertDoesNotThrow(() -> tasks.editTaskDueDate(0, editedDate));
+        assertDoesNotThrow(() -> tasks.markTaskCompleted(0));
+
+        assertEquals(editedString,tasks.getTaskItemTitle(0));
+        assertEquals(editedString, tasks.getTaskItemDescription(0));
+        assertEquals(editedDate, tasks.getTaskItemDueDate(0));
+        assertTrue(tasks.getTaskItemCompletedStatus(0));
+    }
 
     @Test
     public void editingTaskItemDescriptionChangesValue() {
@@ -217,6 +231,4 @@ class TaskListTest {
 
         assertThrows(InvalidTaskIndexException.class, () -> tasks.markTaskUncompleted(1000));
     }
-
-
 }
