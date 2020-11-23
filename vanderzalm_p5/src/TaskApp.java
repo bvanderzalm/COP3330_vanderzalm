@@ -48,7 +48,6 @@ public class TaskApp {
 
     private void taskMenu() {
         int taskMenuChoice;
-        boolean checkInputValid;
         while(true) {
             displayTaskMenuOptions();
             taskMenuChoice = scnr.nextInt();
@@ -56,7 +55,7 @@ public class TaskApp {
             if (taskMenuInputValid(taskMenuChoice)) {
                 processTaskMenuInput(taskMenuChoice);
             } else if (taskMenuChoice == 8) {
-                destroyListInRAM();
+//                destroyListInRAM();
                 break;
             } else {
                 System.out.println("Invalid input. Please try again.\n");
@@ -83,11 +82,11 @@ public class TaskApp {
         return (userInput >= 1 && userInput <= 7);
     }
 
-    private void destroyListInRAM() {
-        if (tasks.isEmpty())
-            return;
-        tasks.clear();
-    }
+//    private void destroyListInRAM() {
+//        if (tasks.isEmpty())
+//            return;
+//        tasks.clear();
+//    }
 
     private void processTaskMenuInput(int taskMenuChoice) {
         if (taskMenuChoice == 1) printTasks();
@@ -109,6 +108,98 @@ public class TaskApp {
         System.out.println(tasks.printAll());
         System.out.println();
     }
+
+    private void addTask() {
+        System.out.print("Task Title: ");
+        String title = scnr.nextLine();
+        System.out.print("Task Description: ");
+        String description = scnr.nextLine();
+        System.out.print("Task Due Date (YYYY-MM-DD): ");
+        String dueDate = scnr.nextLine();
+
+        try {
+            TaskItem task = new TaskItem(title, description, dueDate, false);
+            tasks.add(task);
+        } catch(IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void editTask() {
+        printTasks();
+        System.out.print("Which task would you like to edit? ");
+        int taskIndex = scnr.nextInt();
+        scnr.nextLine();
+
+        if (taskIndex < tasks.getSize()) {
+            System.out.print("Enter a new title for task " + taskIndex + ": ");
+            String title = scnr.nextLine();
+            System.out.print("Enter a new description for task " + taskIndex + ": ");
+            String description = scnr.nextLine();
+            System.out.print("Enter a new task due date (YYYY-MM-DD) for task " + taskIndex + ": ");
+            String dueDate = scnr.nextLine();
+
+            try {
+                tasks.update(taskIndex, title, description, dueDate);
+            } catch(IllegalArgumentException ex) {
+                System.out.println(ex.getMessage());
+            }
+        } else {
+            System.out.println("That task doesn't exist. Please select one listed above.");
+        }
+    }
+
+    private void removeTask() {
+        printTasks();
+        System.out.print("Which task would you like to remove? ");
+        int taskIndex = scnr.nextInt();
+        scnr.nextLine();
+
+        if (taskIndex < tasks.getSize()) {
+            tasks.remove(taskIndex);
+        } else {
+            System.out.println("That task doesn't exist. Please select one listed above.");
+        }
+    }
+
+    private void printUncompletedTasks() {
+        System.out.println("Uncompleted Tasks");
+        System.out.println("-----------------\n");
+        System.out.println(tasks.printUncompleted());
+        System.out.println();
+    }
+
+    private void markTaskComplete() {
+        int taskIndex;
+
+        printUncompletedTasks();
+        if (tasks.isEmpty()) {
+            System.out.println("All tasks are currently complete!");
+        } else {
+            System.out.print("Which task would you like to mark as completed? ");
+            taskIndex = scnr.nextInt();
+            scnr.nextLine();
+
+            if (taskIndex < tasks.getSize()) {
+                if (tasks.getTaskItemCompletedStatus(taskIndex) == true) {
+                    System.out.println("Task is already complete. No changes made.");
+                } else {
+                    tasks.markTaskCompleted(taskIndex);
+                }
+            } else {
+                System.out.println("That task doesn't exist. Please select one listed above.");
+            }
+        }
+    }
+
+    private void printCompletedTasks() {
+        System.out.println("Completed Tasks");
+        System.out.println("---------------\n");
+        System.out.println(tasks.printCompleted());
+        System.out.println();
+    }
+
+    
 
 
 }
