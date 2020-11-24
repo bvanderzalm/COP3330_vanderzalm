@@ -18,7 +18,7 @@ public class TaskApp {
                 taskMenu();
             } else if (taskMainMenuChoice == 2) {
                 try {
-                    loadList();
+                    loadExistingList();
                     taskMenu();
                 } catch (IllegalArgumentException | InputMismatchException ex) {
                     System.out.println(ex.getMessage());
@@ -41,6 +41,14 @@ public class TaskApp {
         System.out.print("> ");
     }
 
+    private void loadExistingList() {
+        scnr.nextLine();
+        System.out.print("Enter the filename you wish to load: ");
+        String filename = scnr.nextLine();
+        tasks.load(filename);
+        System.out.println("Task list has been loaded from " + filename + "\n");
+    }
+
     private void createTaskList() {
         System.out.println("New task list has been created\n");
         tasks = new TaskList();
@@ -55,7 +63,7 @@ public class TaskApp {
             if (taskMenuInputValid(taskMenuChoice)) {
                 processTaskMenuInput(taskMenuChoice);
             } else if (taskMenuChoice == 8) {
-//                destroyListInRAM();
+                destroyListInRAM();
                 break;
             } else {
                 System.out.println("Invalid input. Please try again.\n");
@@ -82,11 +90,11 @@ public class TaskApp {
         return (userInput >= 1 && userInput <= 7);
     }
 
-//    private void destroyListInRAM() {
-//        if (tasks.isEmpty())
-//            return;
-//        tasks.clear();
-//    }
+    private void destroyListInRAM() {
+        if (tasks.isEmpty())
+            return;
+        tasks.clear();
+    }
 
     private void processTaskMenuInput(int taskMenuChoice) {
         if (taskMenuChoice == 1) printTasks();
@@ -110,6 +118,7 @@ public class TaskApp {
     }
 
     private void addTask() {
+        scnr.nextLine();
         System.out.print("Task Title: ");
         String title = scnr.nextLine();
         System.out.print("Task Description: ");
@@ -126,6 +135,7 @@ public class TaskApp {
     }
 
     private void editTask() {
+        scnr.nextLine();
         printTasks();
         System.out.print("Which task would you like to edit? ");
         int taskIndex = scnr.nextInt();
@@ -174,7 +184,7 @@ public class TaskApp {
 
         printUncompletedTasks();
         if (tasks.isEmpty()) {
-            System.out.println("All tasks are currently complete!");
+            System.out.println("There are no tasks at this time.");
         } else {
             System.out.print("Which task would you like to mark as completed? ");
             taskIndex = scnr.nextInt();
@@ -199,7 +209,39 @@ public class TaskApp {
         System.out.println();
     }
 
-    
+    private void markTaskUncomplete() {
+        int taskIndex;
 
+        printCompletedTasks();
+        if (tasks.isEmpty()) {
+            System.out.println("There are no tasks at this time.");
+        } else {
+            System.out.print("Which task would you like to unmark to uncompleted? ");
+            taskIndex = scnr.nextInt();
+            scnr.nextLine();
 
+            if (taskIndex < tasks.getSize()) {
+                if (tasks.getTaskItemCompletedStatus(taskIndex) == false) {
+                    System.out.println("Task is already uncompleted. No changes made.");
+                } else {
+                    tasks.markTaskUncompleted(taskIndex);
+                }
+            } else {
+                System.out.println("That task doesn't exist. Please select one listed above.");
+            }
+        }
+    }
+
+    private void saveCurrentList() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks have been created yet, saving failed.");
+        } else {
+            scnr.nextLine();
+            System.out.print("Enter the filename to save as: ");
+            String filename = scnr.nextLine();
+            tasks.write(filename);
+            System.out.println("Task list has been saved as " + filename);
+        }
+
+    }
 }
