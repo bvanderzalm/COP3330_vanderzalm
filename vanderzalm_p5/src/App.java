@@ -24,7 +24,7 @@ public class App {
             } else if (applicationChoice == 3) {
                 break;
             } else {
-                System.out.println("Invalid input. Please try again.");
+                System.out.println("Invalid input. Please try again.\n");
             }
         }
     }
@@ -37,5 +37,4 @@ public class App {
         System.out.println("3) Quit\n");
         System.out.print("> ");
     }
-
 }
