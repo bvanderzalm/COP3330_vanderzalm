@@ -127,10 +127,10 @@ public class TaskList {
         return str.startsWith("t");
     }
 
-    public void update(int taskIndex, String title, String description, String dueDate) {
+    public void edit(int taskIndex, String title, String description, String dueDate) {
         if (taskIndexValid(taskIndex)) {
             TaskItem task = tasks.get(taskIndex);
-            task.update(title, description, dueDate);
+            task.edit(title, description, dueDate);
         } else {
             throw new IllegalArgumentException("Invalid index, please select a task listed above.");
         }

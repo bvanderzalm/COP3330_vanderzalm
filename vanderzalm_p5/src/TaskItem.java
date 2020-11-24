@@ -34,7 +34,7 @@ public class TaskItem {
         return (dueDate.isAfter(currentDate) || dueDate.isEqual(currentDate));
     }
 
-    public void update(String title, String description, String dueDate) {
+    public void edit(String title, String description, String dueDate) {
         if (title.length() == 0) {
             throw new IllegalArgumentException("Invalid title, must be at least 1 character.");
         }

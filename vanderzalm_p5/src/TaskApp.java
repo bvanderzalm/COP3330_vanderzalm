@@ -150,7 +150,7 @@ public class TaskApp {
             String dueDate = scnr.nextLine();
 
             try {
-                tasks.update(taskIndex, title, description, dueDate);
+                tasks.edit(taskIndex, title, description, dueDate);
             } catch(IllegalArgumentException ex) {
                 System.out.println(ex.getMessage());
             }
