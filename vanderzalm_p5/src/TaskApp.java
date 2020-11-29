@@ -45,6 +45,7 @@ public class TaskApp {
         scnr.nextLine();
         System.out.print("Enter the filename you wish to load: ");
         String filename = scnr.nextLine();
+        tasks = new TaskList();
         tasks.load(filename);
         System.out.println("Task list has been loaded from " + filename + "\n");
     }

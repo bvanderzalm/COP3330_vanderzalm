@@ -45,6 +45,7 @@ public class ContactApp {
         scnr.nextLine();
         System.out.print("Enter the filename you wish to load: ");
         String filename = scnr.nextLine();
+        contacts = new ContactList();
         contacts.load(filename);
         System.out.println("Contact list has been loaded from " + filename + "\n");
     }
