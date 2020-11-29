@@ -24,7 +24,11 @@ public class TaskList {
     }
 
     public void remove(int index) {
-        tasks.remove(index);
+        if (taskIndexValid(index)) {
+            tasks.remove(index);
+        } else {
+            throw new IllegalArgumentException("Invalid index, please select a task listed above.");
+        }
     }
 
     public void clear() {

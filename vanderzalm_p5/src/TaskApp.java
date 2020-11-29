@@ -165,10 +165,10 @@ public class TaskApp {
         int taskIndex = scnr.nextInt();
         scnr.nextLine();
 
-        if (taskIndex < tasks.getSize()) {
+        try {
             tasks.remove(taskIndex);
-        } else {
-            System.out.println("That task doesn't exist. Please select one listed above.");
+        } catch(IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
