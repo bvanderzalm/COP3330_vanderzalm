@@ -1,0 +1,13 @@
+contacts
+Saul
+Goodman
+505-842-5662
+Jimmy.McGill@HHM.com
+Walter
+White
+555-111-1111
+W.W.heisenberg@AlbuquerqueHighSchool.com
+Jesse
+Pinkman
+123-456-2352
+the_capn@gmail.com
