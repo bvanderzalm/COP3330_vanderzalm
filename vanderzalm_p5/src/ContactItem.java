@@ -8,14 +8,6 @@ public class ContactItem {
 
         if (firstName.isBlank() && lastName.isBlank() && phoneNumber.isBlank() && emailAddress.isBlank()) {
             throw new IllegalArgumentException("No input was detected. Returning to main menu.");
-        } else if (firstName.isBlank()) {
-            throw new IllegalArgumentException("Invalid first name, you can't leave it blank.");
-        } else if (lastName.isBlank()) {
-            throw new IllegalArgumentException("Invalid last name, you can't leave it blank.");
-        } else if (phoneNumber.isBlank()) {
-            throw new IllegalArgumentException("Invalid phone number, you can't leave it blank.");
-        } else if (emailAddress.isBlank()) {
-            throw new IllegalArgumentException("Invalid email address, you can't leave it blank.");
         } else {
             this.firstName = firstName;
             this.lastName = lastName;
@@ -28,14 +20,6 @@ public class ContactItem {
 
         if (firstName.isBlank() && lastName.isBlank() && phoneNumber.isBlank() && emailAddress.isBlank()) {
             throw new IllegalArgumentException("No input was detected. Returning to main menu.");
-        } else if (firstName.isBlank()) {
-            throw new IllegalArgumentException("Invalid first name, you can't leave it blank.");
-        } else if (lastName.isBlank()) {
-            throw new IllegalArgumentException("Invalid last name, you can't leave it blank.");
-        } else if (phoneNumber.isBlank()) {
-            throw new IllegalArgumentException("Invalid phone number, you can't leave it blank.");
-        } else if (emailAddress.isBlank()) {
-            throw new IllegalArgumentException("Invalid email address, you can't leave it blank.");
         } else {
             this.firstName = firstName;
             this.lastName = lastName;
