@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -189,14 +188,6 @@ class TaskListTest {
     @Test
     public void savedTaskListCanBeLoaded() {
         // File is on GitHub repo labeled as the string below.
-//        TaskList saveThisTaskList = new TaskList();
-//        saveThisTaskList.add(new TaskItem("Title", "", "3000-01-01", false));
-//        saveThisTaskList.add(new TaskItem("Title2", "", "3000-01-02", true));
-//
-//        TaskList newTasks = new TaskList();
-//        assertDoesNotThrow(() -> saveThisTaskList.write("output.txt"));
-//        assertDoesNotThrow(() -> newTasks.load("output.txt"));
-
         TaskList tasks = new TaskList();
         assertDoesNotThrow(() -> tasks.load("TestCaseTaskListOutput.txt"));
     }
