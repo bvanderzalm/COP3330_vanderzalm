@@ -1,7 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.*;
 
 public class TaskList {
@@ -17,10 +16,6 @@ public class TaskList {
 
     public int getSize() {
         return tasks.size();
-    }
-
-    public TaskItem get(int index) {
-        return tasks.get(index);
     }
 
     public void remove(int index) {
