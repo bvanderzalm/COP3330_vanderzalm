@@ -70,9 +70,10 @@ class ContactItemTest {
         assertDoesNotThrow(() -> contact.update("sponge", "bob", "123-123-1234", "bob@sponge.com"));
     }
 
-//    @Test
-//    public void testToString() {
-//
-//    }
+    @Test
+    public void testToString() {
+        ContactItem contact = new ContactItem("bob", "smith", "123-123-1234", "bobS@email.com");
 
+        assertEquals("Name: bob smith\n" + "Phone: 123-123-1234\n" + "Email: bobS@email.com", contact.toString());
+    }
 }
