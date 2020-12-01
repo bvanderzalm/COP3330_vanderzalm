@@ -35,6 +35,7 @@ class ContactListTest {
         contacts.add(new ContactItem("bob", "smith", "", ""));
 
         assertDoesNotThrow(() -> contacts.update(0, "", "smith", "123-123-1234", "smith@email.com"));
+        assertEquals("", contacts.getContactFirstName(0));
     }
 
     @Test
@@ -43,6 +44,7 @@ class ContactListTest {
         contacts.add(new ContactItem("bob", "smith", "", ""));
 
         assertDoesNotThrow(() -> contacts.update(0, "bob", "", "123-123-1234", "smith@email.com"));
+        assertEquals("", contacts.getContactLastName(0));
     }
 
     @Test
@@ -51,6 +53,7 @@ class ContactListTest {
         contacts.add(new ContactItem("bob", "smith", "", ""));
 
         assertDoesNotThrow(() -> contacts.update(0, "bob", "smith", "", "smith@email.com"));
+        assertEquals("", contacts.getContactPhoneNumber(0));
     }
 
     @Test
@@ -59,6 +62,10 @@ class ContactListTest {
         contacts.add(new ContactItem("bob", "smith", "", ""));
 
         assertDoesNotThrow(() -> contacts.update(0, "bob", "smith", "123-123-1234", "smith@email.com"));
+        assertEquals("bob", contacts.getContactFirstName(0));
+        assertEquals("smith", contacts.getContactLastName(0));
+        assertEquals("123-123-1234", contacts.getContactPhoneNumber(0));
+        assertEquals("smith@email.com", contacts.getContactEmailAddress(0));
     }
 
     @Test
@@ -88,6 +95,7 @@ class ContactListTest {
 
     @Test
     public void savedContactListCanBeLoaded() {
+        // File is on GitHub repo labeled as the string below.
         ContactList contacts = new ContactList();
         assertDoesNotThrow(() -> contacts.load("TestCaseContactListOutput.txt"));
     }
