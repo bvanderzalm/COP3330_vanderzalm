@@ -138,6 +138,11 @@ public class TaskApp {
     private void editTask() {
         scnr.nextLine();
         printTasks();
+        if (tasks.isEmpty()) {
+            System.out.println("You currently don't have any tasks.");
+            return;
+        }
+
         System.out.print("Which task would you like to edit? ");
         int taskIndex = scnr.nextInt();
         scnr.nextLine();
@@ -162,6 +167,10 @@ public class TaskApp {
 
     private void removeTask() {
         printTasks();
+        if (tasks.isEmpty()) {
+            System.out.println("You currently don't have any tasks.");
+            return;
+        }
         System.out.print("Which task would you like to remove? ");
         int taskIndex = scnr.nextInt();
         scnr.nextLine();

@@ -136,6 +136,10 @@ public class ContactApp {
     private void updateContact() {
         scnr.nextLine();
         printContacts();
+        if (contacts.isEmpty()) {
+            System.out.println("You currently don't have any contacts.");
+            return;
+        }
         System.out.print("Which contact would you like to update? ");
         int contactIndex = scnr.nextInt();
         scnr.nextLine();
@@ -162,6 +166,10 @@ public class ContactApp {
 
     private void removeContact() {
         printContacts();
+        if (contacts.isEmpty()) {
+            System.out.println("You currently don't have any contacts.");
+            return;
+        }
         System.out.print("Which contact would you like to delete? ");
         int contactIndex = scnr.nextInt();
         scnr.nextLine();
